@@ -2,6 +2,7 @@
 using DataAccess.Abstract;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,9 +30,24 @@ namespace Business.Concrete
 
         }
 
+        public List<Product> GetAllByCategorId(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Product> GetAllbyCategoryId(int id)
         {
             return _productDal.GetAll(p=>p.CategoryId == id);   
+        }
+
+        public List<Product> GetAllUnitPrice(decimal min, decimal max)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<ProductDetailDto> GetProductDetails()
+        {
+            return _productDal.GetProductDetails();
         }
     }
 }
