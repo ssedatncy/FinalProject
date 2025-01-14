@@ -23,23 +23,11 @@ namespace Business.Concrete
             _productDal = productDal;
         }
 
-        public IResult Add(Product product)
-        {
-            //business codes
-            if ( product.ProductName.Length<2)
-            {
-                return new ErrorResult(Messages.ProductNameInvalid);
-            }
-    
-
-            _productDal.Add(product);
-
-            return new SuccessResult(Messages.ProductAdded);
-        }
+      
 
         public IDataResult<List<Product>> GetAll()
         {
-            if (DateTime.Now.Hour==22)
+            if (DateTime.Now.Hour==01)
             {
                 return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
             }
@@ -64,16 +52,24 @@ namespace Business.Concrete
 
         public IDataResult<List<ProductDetailDto>> GetProductDetails()
         {
-            if (DateTime.Now.Hour == 22)
+            if (DateTime.Now.Hour == 14)
             {
                 return new ErrorDataResult<List<ProductDetailDto>>(Messages.MaintenanceTime);
             }
             return  new SuccessDataResult<List<ProductDetailDto>>(_productDal.GetProductDetails());
         }
 
-        IResult IProductService.Add(Product product)
+        public IResult Add(Product product)
         {
-            throw new NotImplementedException();
+            if (product.ProductName.Length < 2)
+            {
+                return new ErrorResult(Messages.ProductNameInvalid);
+            }
+
+
+            _productDal.Add(product);
+
+            return new SuccessResult(Messages.ProductAdded);
         }
     }
 }
